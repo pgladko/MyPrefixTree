@@ -1,0 +1,17 @@
+PATH
+  remote: .
+  specs:
+    PrefixTree (0.0.1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    rake (10.2.2)
+
+PLATFORMS
+  x64-mingw32
+
+DEPENDENCIES
+  PrefixTree!
+  bundler (~> 1.6)
+  rake
