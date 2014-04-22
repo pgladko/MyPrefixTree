@@ -3,18 +3,13 @@ require "PrefixTree/version"
 module PrefixTree
   # Your code goes here...
   class MyPrefixTree
-    @root
-    @searchRes
 
+    attr_accessor :root
     attr_accessor :searchRes
 
     def initialize()
       @root = TrieNode.new
       @searchRes = Array.new
-    end
-
-    def root
-      @root
     end
 
     def printSorted(treeNode,s)
