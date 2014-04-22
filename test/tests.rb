@@ -24,12 +24,32 @@ class Tests < Test::Unit::TestCase
     assert_not_equal res2,["hello"]
   end
 
-  def test_find1
+  def test_find_same_beginning
     a = PrefixTree::MyPrefixTree.new
     a.add("hell")
     a.add("hello")
     res1 = a.find("hel")
 
     assert_equal res1, ["hello","hell"]
-   end
+  end
+
+  def test_find_2_different
+    a = PrefixTree::MyPrefixTree.new
+    a.add("hello")
+    a.add("peach")
+    res1 = a.find("hel")
+    res2 = a.find("pea")
+
+    assert_not_equal res1, res2
+  end
+
+  def test_find_same_word
+    a = PrefixTree::MyPrefixTree.new
+    a.add("hello")
+    a.add("hello")
+    res1 = a.find("hel")
+
+    assert_equal res1, ["hello"]
+    assert_not_equal res1,["hello","hello"]
+  end
 end
