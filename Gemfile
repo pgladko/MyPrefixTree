@@ -6,3 +6,5 @@ gemspec
 gem 'simplecov', :require => false, :group => :test
 
 gem 'test-unit'
+
+gem 'zip'

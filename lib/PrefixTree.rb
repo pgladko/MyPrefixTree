@@ -1,4 +1,5 @@
 require "PrefixTree/version"
+require "zip/zip"
 
 module PrefixTree
   # Your code goes here...
@@ -21,7 +22,12 @@ module PrefixTree
       end
     end
 
-    def getValue(treeNode,s)
+    def get_all_words()
+      @searchRes  = []
+      getValue(root,"")
+    end
+
+   def getValue(treeNode,s)
       treeNode.children.each_key do |k|
         getValue(treeNode.children[k],s+k)
       end
@@ -64,6 +70,33 @@ module PrefixTree
 
       return @searchRes
     end
+
+    def load_from_file(fullName)
+      f = File.open(fullName, "r")
+      f.each_line do |line|
+        add(line)
+      end
+    end
+
+    def save_to_file(fullName)
+      get_all_words()
+      f = File.open(fullName, "w")
+      searchRes.each { |word|
+      f.puts word
+      }
+    end
+
+    def load_from_zip(fullName,textFileName)
+      Zip::ZipFile.open(fullName) {|zipfile| zipfile.read(textFileName).split("\n").each do |line| add(line) end  }
+    end
+
+    def save_to_zip(fullName,textfileName)
+      get_all_words()
+      Zip::ZipFile.open(fullName, Zip::ZipFile::CREATE){
+       |zipfile| zipfile.get_output_stream(textfileName) { |f| searchRes.each { |word| f.puts word }}
+      }
+    end
+
   end
 
   class TrieNode
