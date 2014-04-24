@@ -7,6 +7,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     docile (1.1.3)
+    minitest (5.3.2)
     multi_json (1.9.2)
     rake (10.2.2)
     simplecov (0.8.2)
@@ -14,7 +15,6 @@ GEM
       multi_json
       simplecov-html (~> 0.8.0)
     simplecov-html (0.8.0)
-    test-unit (2.0.0.0)
     zip (2.0.2)
 
 PLATFORMS
@@ -23,7 +23,7 @@ PLATFORMS
 DEPENDENCIES
   PrefixTree!
   bundler (~> 1.6)
+  minitest
   rake
   simplecov
-  test-unit
   zip

@@ -26,8 +26,8 @@ b =a.find("hegd")
 puts "#{b}"
 =end
 
-=begin
 
+=begin
 puts "---------------------"
 puts "Load from file: dictionary.txt"
 a.load_from_file("D:/dictionary.txt")
@@ -36,7 +36,12 @@ a.save_to_file("D:/dictionary1.txt")
 puts "Saved"
 =end
 
+
+
+=begin
 puts "Load from zip file: dictionary.zip"
 a.load_from_zip("D:/dictionary.zip","dictionary.txt")
 a.printSorted(a.root,"")
 a.save_to_zip("D:/dictionary_new.zip","dictionary_new.txt")
+=end
+

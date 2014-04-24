@@ -1,7 +1,7 @@
 require_relative 'test_helper'
 require_relative '../lib/PrefixTree'
 
-class Tests < Test::Unit::TestCase
+class Tests < Minitest::Test
   def test_contains
     a = PrefixTree::MyPrefixTree.new
     a.add("hello")
@@ -19,9 +19,9 @@ class Tests < Test::Unit::TestCase
     res2 = a.find("bwe")
 
     assert_equal res1, ["hello","help"]
-    assert_not_equal res1,["hello"]
+    refute_equal res1,["hello"]
     assert_equal res2, "not found"
-    assert_not_equal res2,["hello"]
+    refute_equal res2,["hello"]
   end
 
   def test_find_same_beginning
@@ -40,7 +40,7 @@ class Tests < Test::Unit::TestCase
     res1 = a.find("hel")
     res2 = a.find("pea")
 
-    assert_not_equal res1, res2
+    refute_equal res1, res2
   end
 
   def test_find_same_word
@@ -50,6 +50,29 @@ class Tests < Test::Unit::TestCase
     res1 = a.find("hel")
 
     assert_equal res1, ["hello"]
-    assert_not_equal res1,["hello","hello"]
+    refute_equal res1,["hello","hello"]
   end
-end
+
+
+  def test_load_from_file
+     a = PrefixTree::MyPrefixTree.new
+     File.stub(:open,['hello','help','helicopter']) do
+     a.load_from_file('')
+     end
+     a.get_all_words()
+     assert_equal a.searchRes,['hello', 'help','helicopter']
+     refute_equal a.searchRes,['hello', 'help']
+  end
+
+  # def test_load_from_zip
+  #   a = PrefixTree::MyPrefixTree.new
+  #   Zip::ZipFile.stub(:open,['hello\n help\n helicopter']) do
+  #     a.load_from_zip('','')
+  #   end
+  #   a.get_all_words()
+  #   assert_equal a.searchRes,['hello', 'help','helicopter']
+  #   refute_equal a.searchRes,['hello', 'help']
+  # end
+
+
+  end
