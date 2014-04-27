@@ -73,7 +73,7 @@ module PrefixTree
     end
 
     def load_from_file(fullName)
-       File.open(fullName, 'r').each { |line| add(line) }
+       File.open(fullName, 'r').each_line { |line| add(line.delete("\n")) }
     end
 
     def save_to_file(fullName)

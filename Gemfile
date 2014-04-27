@@ -8,3 +8,5 @@ gem 'simplecov', :require => false, :group => :test
 gem 'minitest'
 
 gem 'zip'
+
+gem 'sinatra'
