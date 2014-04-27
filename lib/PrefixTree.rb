@@ -1,4 +1,4 @@
-require "PrefixTree/version"
+require_relative "../lib/PrefixTree/version"
 require "zip/zip"
 
 module PrefixTree
@@ -22,9 +22,10 @@ module PrefixTree
       end
     end
 
-    def get_all_words()
+    def get_all_words
       @searchRes  = []
       getValue(root,"")
+      return @searchRes
     end
 
    def getValue(treeNode,s)
@@ -76,9 +77,8 @@ module PrefixTree
     end
 
     def save_to_file(fullName)
-      get_all_words()
       f = File.open(fullName, "w")
-      searchRes.each { |word|
+      get_all_words.each { |word|
       f.puts word
       }
     end
@@ -88,9 +88,8 @@ module PrefixTree
     end
 
     def save_to_zip(fullName,textfileName)
-      get_all_words()
       Zip::ZipFile.open(fullName, Zip::ZipFile::CREATE){
-       |zipfile| zipfile.get_output_stream(textfileName) { |f| searchRes.each { |word| f.puts word }}
+       |zipfile| zipfile.get_output_stream(textfileName) { |f| get_all_words.each { |word| f.puts word }}
       }
     end
 

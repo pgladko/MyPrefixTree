@@ -6,10 +6,10 @@ require 'PrefixTree/version'
 Gem::Specification.new do |spec|
   spec.name          = "PrefixTree"
   spec.version       = PrefixTree::VERSION
-  spec.authors       = ["TODO: Write your name"]
-  spec.email         = ["TODO: Write your email address"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.authors       = ["Pavel Gladko"]
+  spec.email         = ["pol_g@mail.ru"]
+  spec.summary       = %q{Prefix tree realization.}
+  spec.description   = %q{Prefix tree realization.}
   spec.homepage      = ""
   spec.license       = "MIT"
 

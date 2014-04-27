@@ -27,14 +27,14 @@ puts "#{b}"
 =end
 
 
-=begin
+
 puts "---------------------"
 puts "Load from file: dictionary.txt"
 a.load_from_file("D:/dictionary.txt")
 puts "Loaded"
 a.save_to_file("D:/dictionary1.txt")
 puts "Saved"
-=end
+
 
 
 

@@ -1,5 +1,5 @@
 require_relative 'test_helper'
-require_relative '../lib/PrefixTree'
+require_relative '../lib/PrefixTree/PrefixTree'
 
 class Tests < Minitest::Test
   def test_contains
@@ -59,20 +59,28 @@ class Tests < Minitest::Test
      File.stub(:open,['hello','help','helicopter']) do
      a.load_from_file('')
      end
-     a.get_all_words()
-     assert_equal a.searchRes,['hello', 'help','helicopter']
-     refute_equal a.searchRes,['hello', 'help']
+
+     assert_equal a.get_all_words,['hello', 'help','helicopter']
+     refute_equal a.get_all_words,['hello', 'help']
   end
 
-  # def test_load_from_zip
-  #   a = PrefixTree::MyPrefixTree.new
-  #   Zip::ZipFile.stub(:open,['hello\n help\n helicopter']) do
-  #     a.load_from_zip('','')
-  #   end
-  #   a.get_all_words()
-  #   assert_equal a.searchRes,['hello', 'help','helicopter']
-  #   refute_equal a.searchRes,['hello', 'help']
-  # end
+=begin
+   def test_load_from_zip
+     a = PrefixTree::MyPrefixTree.new
+     mock = Minitest::Mock.new
+
+     mock.expect(:open, nil, '')
+     mock.expect(:read, nil, [1,2,3])
+     mock.expect(:each, nil, ['hello', 'help', 'helicopter'])
+
+     Zip::ZipFile.stub(:open,nil,mock) do
+       a.load_from_zip('','')
+     end
+
+     assert_equal a.get_all_words,['hello', 'help','helicopter']
+     refute_equal a.get_all_words,['hello', 'help']
+   end
+=end
 
 
   end
