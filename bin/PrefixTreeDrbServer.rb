@@ -3,6 +3,7 @@ require_relative "../lib/PrefixTree"
 
 # The URI for the server to connect to
 MySRV_URI="druby://localhost:8788"
+WORD_SRCPATH = "wordsrc/src.txt"
 
 
 class PrefixTreeDrbServer
@@ -12,7 +13,13 @@ class PrefixTreeDrbServer
   public
    def initialize
      @tree = PrefixTree::MyPrefixTree.new
-     @tree.load_from_file("D:/dictionary.txt")
+
+     begin
+       @tree.load_from_file(WORD_SRCPATH)
+     rescue
+       puts 'error appeared loading data from source file'
+     end
+
      puts 'PrefixTree service Started'
    end
 

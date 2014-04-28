@@ -2,11 +2,18 @@ require 'sinatra'
 require 'json'
 require_relative "../lib/PrefixTree"
 
+WORD_SRCPATH = "wordsrc/src.txt"
+
 set :port,8085
 
 configure do
   tree = PrefixTree::MyPrefixTree.new
-  tree.load_from_file("D:/dictionary.txt")
+  begin
+    tree.load_from_file(WORD_SRCPATH)
+  rescue
+    puts 'error appeared loading data from source file'
+  end
+
   set :tree, tree
 end
 
