@@ -1,22 +1,23 @@
 require_relative 'test_helper'
-require_relative '../lib/PrefixTree/PrefixTree'
+require_relative '../lib/PrefixTree'
 
 class Tests < Minitest::Test
+
   def test_contains
-    a = PrefixTree::MyPrefixTree.new
-    a.add("hello")
-    res1 = a.contains("hello")
-    res2 = a.contains("bye")
+    myTree = PrefixTree::MyPrefixTree.new
+    myTree.add("hello")
+    res1 = myTree.contains("hello")
+    res2 = myTree.contains("bye")
     assert_equal res1, true
     assert_equal res2, false
   end
 
   def test_find
-    a = PrefixTree::MyPrefixTree.new
-    a.add("hello")
-    a.add("help")
-    res1 = a.find("hel")
-    res2 = a.find("bwe")
+    myTree = PrefixTree::MyPrefixTree.new
+    myTree.add("hello")
+    myTree.add("help")
+    res1 = myTree.find("hel")
+    res2 = myTree.find("bwe")
 
     assert_equal res1, ["hello","help"]
     refute_equal res1,["hello"]
@@ -25,62 +26,54 @@ class Tests < Minitest::Test
   end
 
   def test_find_same_beginning
-    a = PrefixTree::MyPrefixTree.new
-    a.add("hell")
-    a.add("hello")
-    res1 = a.find("hel")
+    myTree = PrefixTree::MyPrefixTree.new
+    myTree.add("hell")
+    myTree.add("hello")
+    res1 = myTree.find("hel")
 
     assert_equal res1, ["hello","hell"]
   end
 
   def test_find_2_different
-    a = PrefixTree::MyPrefixTree.new
-    a.add("hello")
-    a.add("peach")
-    res1 = a.find("hel")
-    res2 = a.find("pea")
+    myTree = PrefixTree::MyPrefixTree.new
+    myTree.add("hello")
+    myTree.add("peach")
+    res1 = myTree.find("hel")
+    res2 = myTree.find("pea")
 
     refute_equal res1, res2
   end
 
   def test_find_same_word
-    a = PrefixTree::MyPrefixTree.new
-    a.add("hello")
-    a.add("hello")
-    res1 = a.find("hel")
+    myTree = PrefixTree::MyPrefixTree.new
+    myTree.add("hello")
+    myTree.add("hello")
+    res1 = myTree.find("hel")
 
     assert_equal res1, ["hello"]
     refute_equal res1,["hello","hello"]
   end
 
-
   def test_load_from_file
-     a = PrefixTree::MyPrefixTree.new
+    myTree = PrefixTree::MyPrefixTree.new
      File.stub(:open,['hello','help','helicopter']) do
-     a.load_from_file('')
+       myTree.load_from_file('')
      end
 
-     assert_equal a.get_all_words,['hello', 'help','helicopter']
-     refute_equal a.get_all_words,['hello', 'help']
+     assert_equal myTree.get_all_words,['hello', 'help','helicopter']
+     refute_equal myTree.get_all_words,['hello', 'help']
   end
 
-=begin
-   def test_load_from_zip
-     a = PrefixTree::MyPrefixTree.new
-     mock = Minitest::Mock.new
+  def test_save_to_file
+    myTree = PrefixTree::MyPrefixTree.new
+    myTree.add 'hello'
+    mock = Minitest::Mock.new
+    mock.expect(:puts, nil, ['hello'])
 
-     mock.expect(:open, nil, '')
-     mock.expect(:read, nil, [1,2,3])
-     mock.expect(:each, nil, ['hello', 'help', 'helicopter'])
-
-     Zip::ZipFile.stub(:open,nil,mock) do
-       a.load_from_zip('','')
-     end
-
-     assert_equal a.get_all_words,['hello', 'help','helicopter']
-     refute_equal a.get_all_words,['hello', 'help']
-   end
-=end
-
+    File.stub(:open, nil, mock) do
+      myTree.save_to_file('')
+    end
+    assert_equal ['hello'], myTree.get_all_words
+  end
 
   end

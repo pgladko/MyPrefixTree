@@ -73,18 +73,23 @@ module PrefixTree
     end
 
     def load_from_file(fullName)
-       File.open(fullName).each_line { |line| add(line.delete("\n")) }
+       File.open(fullName).each { |line| add(line.delete("\n")) }
     end
 
     def save_to_file(fullName)
-      f = File.open(fullName, "w")
-      get_all_words.each { |word|
-      f.puts word
-      }
+      File.open(fullName, 'w') do |f|
+        get_all_words.each { |word| f.puts(word) }
+      end
     end
 
     def load_from_zip(fullName,textFileName)
-      Zip::ZipFile.open(fullName) {|zipfile| zipfile.read(textFileName).split("\n").each do |line| add(line) end  }
+      Zip::ZipFile.open(fullName) {
+          |zipfile|
+        zipfile.read(textFileName).split("\n").each do
+          |line|
+          add(line)
+        end
+      }
     end
 
     def save_to_zip(fullName,textfileName)
