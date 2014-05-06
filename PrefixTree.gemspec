@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Pavel Gladko"]
   spec.email         = ["pol_g@mail.ru"]
   spec.summary       = %q{Prefix tree realization.}
-  spec.description   = %q{Prefix tree realization.}
-  spec.homepage      = ""
+  spec.description   = %q{ANOTHER Prefix tree realization.}
+  spec.homepage      = "http://google.com"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")

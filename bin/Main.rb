@@ -3,6 +3,8 @@ require_relative "../lib/PrefixTree"
 a = PrefixTree::MyPrefixTree.new
 
 puts "---------------------"
+puts "Add"
+puts "---------------------"
 a.add("hello")
 puts "Added: hello"
 a.add("help")
@@ -12,17 +14,22 @@ puts "Added: hegicopter"
 a.add("hegd")
 puts "Added: hegd"
 puts "---------------------"
+puts "Contains"
+puts "---------------------"
 puts "Trie contains hello:"
 puts a.contains("hello")
 
 puts "Trie contains banana:"
 puts a.contains("banana")
 puts "---------------------"
-puts "Trie:"
+puts "Trie"
+puts "---------------------"
 a.printSorted(a.root,"")
 puts "---------------------"
-puts "Find: hegd"
-b =a.find("hegd")
+puts "Find:"
+puts "---------------------"
+puts "Find: hel"
+b =a.find("heg")
 puts "#{b}"
 
 
