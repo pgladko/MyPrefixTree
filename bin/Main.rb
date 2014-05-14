@@ -16,8 +16,8 @@ puts "Added: hegd"
 puts "---------------------"
 puts "Contains"
 puts "---------------------"
-puts "Trie contains hello:"
-puts a.contains("hello")
+puts "Trie contains hell:"
+puts a.contains("hell")
 
 puts "Trie contains banana:"
 puts a.contains("banana")
@@ -29,7 +29,7 @@ puts "---------------------"
 puts "Find:"
 puts "---------------------"
 puts "Find: hel"
-b =a.find("heg")
+b =a.find("hell")
 puts "#{b}"
 
 

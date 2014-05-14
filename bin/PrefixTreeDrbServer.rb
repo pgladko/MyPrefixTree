@@ -15,7 +15,7 @@ class PrefixTreeDrbServer
      @tree = PrefixTree::MyPrefixTree.new
 
      begin
-       @tree.load_from_file(WORD_SRCPATH)
+       @tree.loadFromFile(WORD_SRCPATH)
      rescue
        puts 'error appeared loading data from source file'
      end

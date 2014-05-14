@@ -21,7 +21,7 @@ class Tests < Minitest::Test
 
     assert_equal res1, ["hello","help"]
     refute_equal res1,["hello"]
-    assert_equal res2, "not found"
+    assert_equal res2, []
     refute_equal res2,["hello"]
   end
 
@@ -54,26 +54,26 @@ class Tests < Minitest::Test
     refute_equal res1,["hello","hello"]
   end
 
-  def test_load_from_file
+  def test_loadFromFile
     myTree = PrefixTree::MyPrefixTree.new
      File.stub(:open,['hello','help','helicopter']) do
-       myTree.load_from_file('')
+       myTree.loadFromFile('')
      end
 
-     assert_equal myTree.get_all_words,['hello', 'help','helicopter']
-     refute_equal myTree.get_all_words,['hello', 'help']
+     assert_equal myTree.getAllWords,['hello', 'help','helicopter']
+     refute_equal myTree.getAllWords,['hello', 'help']
   end
 
-  def test_save_to_file
+  def test_saveToFile
     myTree = PrefixTree::MyPrefixTree.new
     myTree.add 'hello'
     mock = Minitest::Mock.new
     mock.expect(:puts, nil, ['hello'])
 
     File.stub(:open, nil, mock) do
-      myTree.save_to_file('')
+      myTree.saveToFile('')
     end
-    assert_equal ['hello'], myTree.get_all_words
+    assert_equal ['hello'], myTree.getAllWords
   end
 
   end

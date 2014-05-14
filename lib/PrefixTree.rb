@@ -2,7 +2,7 @@ require_relative "../lib/PrefixTree/version"
 require "zip/zip"
 
 module PrefixTree
-  # Your code goes here...
+  # class that provide operations with prefix tree
   class MyPrefixTree
 
     attr_accessor :root
@@ -22,13 +22,13 @@ module PrefixTree
       end
     end
 
-    def get_all_words
+    def getAllWords
       @searchRes  = []
       getValue(root,"")
       return @searchRes
     end
 
-   def getValue(treeNode,s)
+    def getValue(treeNode,s)
       treeNode.children.each_key do |k|
         getValue(treeNode.children[k],s+k)
       end
@@ -47,42 +47,47 @@ module PrefixTree
     end
 
     def contains(word)
-      v = @root
-      word.each_char do |i|
-        unless v.children.has_key?(i)
-          return false;
-        end
-        v=v.children[i]
-      end
-
-      return true
+      wordPresent, node = iterateThroughTrie(word)
+      return wordPresent && node.leaf
     end
 
     def find(word)
-      v = @root
-      word.each_char do |i|
-        unless v.children.has_key?(i)
-          return "not found";
-        end
-        v=v.children[i]
-      end
       @searchRes = Array.new
-      getValue(v,word)
+
+      if word.length < 3
+        return []
+      end
+
+      wordPresent, node = iterateThroughTrie(word)
+      if wordPresent
+        getValue(node,word)
+      end
 
       return @searchRes
     end
 
-    def load_from_file(fullName)
+    def iterateThroughTrie(word)
+      v = root
+      word.each_char do |char|
+        unless v.children.has_key?(char)
+          return [false, v]
+        end
+        v = v.children[char]
+      end
+     return [true, v]
+    end
+
+    def loadFromFile(fullName)
        File.open(fullName).each { |line| add(line.delete("\n")) }
     end
 
-    def save_to_file(fullName)
+    def saveToFile(fullName)
       File.open(fullName, 'w') do |f|
-        get_all_words.each { |word| f.puts(word) }
+        getAllWords.each { |word| f.puts(word) }
       end
     end
 
-    def load_from_zip(fullName,textFileName)
+    def loadFromZip(fullName,textFileName)
       Zip::ZipFile.open(fullName) {
           |zipfile|
         zipfile.read(textFileName).split("\n").each do
@@ -92,25 +97,25 @@ module PrefixTree
       }
     end
 
-    def save_to_zip(fullName,textfileName)
+    def saveToZip(fullName,textfileName)
       Zip::ZipFile.open(fullName, Zip::ZipFile::CREATE){
-       |zipfile| zipfile.get_output_stream(textfileName) { |f| get_all_words.each { |word| f.puts word }}
+       |zipfile| zipfile.get_output_stream(textfileName) { |f| getAllWords.each { |word| f.puts word }}
       }
     end
 
-  end
+    class TrieNode
 
-  class TrieNode
+      @children
+      @leaf
 
-    @children
-    @leaf
+      attr_accessor :leaf
+      attr_accessor :children
 
-    attr_accessor :leaf
-    attr_accessor :children
+      def initialize()
+        @children = Hash.new
+        @leaf = false
+      end
 
-    def initialize()
-      @children = Hash.new
-      @leaf = false
     end
 
   end
